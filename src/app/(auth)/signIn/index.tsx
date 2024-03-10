@@ -1,3 +1,3 @@
-import LoginScreen from './Login';
+import LoginScreen from './_layout';
 
 export default LoginScreen
