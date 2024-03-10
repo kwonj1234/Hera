@@ -3,7 +3,6 @@
 ## Installed Package
 - expo-document-picker
     ```npx expo install expo-document-picker```
-- react-native-elements
 
 ### Supabase
 - @supabase/supabase-js 
