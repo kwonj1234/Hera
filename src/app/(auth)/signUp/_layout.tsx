@@ -52,7 +52,7 @@ export default function SignUpScreen() {
       <Button
 				disabled={loading}
 			>
-				<Link href='/signIn'>
+				<Link href='/'>
 					Go Back to Login
 				</Link>
 			</Button>
