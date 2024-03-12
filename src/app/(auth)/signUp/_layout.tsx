@@ -1,18 +1,18 @@
-import { useState } from "react"
+import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-import { View, StyleSheet } from "react-native" 
-import { Button, FAB, TextInput } from "react-native-paper"
+import { View, StyleSheet } from "react-native";
+import { TextInput, FAB, Button } from "react-native-paper";
 
-export default function LoginScreen() {
 
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [loading, setLoading] = useState(false);
-
+export default function SignUpScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  
   async function signUpWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
@@ -21,17 +21,16 @@ export default function LoginScreen() {
     setLoading(false);
   }
 
-	return (
-		<View style={styles.container}>
+  return (
+    <View style={styles.container}>
 			<TextInput
 				value={email}
 				onChangeText={text => setEmail(text)}
 				mode="outlined"
-				placeholder="Username"
+				placeholder="Email"
         style={styles.input}
 			></TextInput>
-
-			<TextInput
+      <TextInput
 				value={password}
 				onChangeText={text => setPassword(text)}
 				mode="outlined"
@@ -39,20 +38,21 @@ export default function LoginScreen() {
         style={styles.input}
 			></TextInput>
 
-			<FAB
-				label={loading ? "Logging In..." : "Login"}
+      <FAB
+				label={loading ? "Creating Account..." : "Create Account"}
+        disabled={loading}
 				uppercase
-				disabled={loading}
+        onPress={() => signUpWithEmail()}
 			></FAB>
 
-			<Button
+      <Button
 				onPress={() => signUpWithEmail()}
 				disabled={loading}
 			>
-				Sign Up
+				Back to Login
 			</Button>
-		</View>
-	)
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
