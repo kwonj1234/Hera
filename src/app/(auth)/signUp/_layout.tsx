@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 
 import { View, StyleSheet } from "react-native";
 import { TextInput, FAB, Button } from "react-native-paper";
+import { Link, Stack } from 'expo-router'
 
 
 export default function SignUpScreen() {
@@ -24,6 +25,7 @@ export default function SignUpScreen() {
 
   return (
     <View style={styles.container}>
+			<Stack.Screen options={{ title: 'Sign Up'}} />
 			<TextInput
 				value={email}
 				onChangeText={text => setEmail(text)}
@@ -48,10 +50,11 @@ export default function SignUpScreen() {
 			></FAB>
 
       <Button
-				onPress={() => signUpWithEmail()}
 				disabled={loading}
 			>
-				Back to Login
+				<Link href='/signIn'>
+					Go Back to Login
+				</Link>
 			</Button>
     </View>
   )
