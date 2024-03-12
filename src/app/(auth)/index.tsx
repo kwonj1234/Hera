@@ -6,20 +6,10 @@ import { Button, FAB, TextInput } from "react-native-paper"
 
 export default function LoginScreen() {
 
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [loading, setLoading] = useState(false);
-
-  async function signUpWithEmail() {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
-  
-    if (error) alert(error.message);
-    setLoading(false);
-  }
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [loading, setLoading] = useState<boolean>(false);
+	const [hidePassword, setHidePassword] = useState<boolean>(true);
 
 	return (
 		<View style={styles.container}>
@@ -36,6 +26,7 @@ export default function LoginScreen() {
 				onChangeText={text => setPassword(text)}
 				mode="outlined"
 				placeholder="Password"
+				secureTextEntry={hidePassword}
         style={styles.input}
 			></TextInput>
 
@@ -46,10 +37,9 @@ export default function LoginScreen() {
 			></FAB>
 
 			<Button
-				onPress={() => signUpWithEmail()}
 				disabled={loading}
 			>
-				Sign Up
+				Create Account
 			</Button>
 		</View>
 	)

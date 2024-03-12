@@ -9,6 +9,7 @@ export default function SignUpScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+	const [hidePassword, setHidePassword] = useState<boolean>(true);
   
   async function signUpWithEmail() {
     setLoading(true);
@@ -36,6 +37,7 @@ export default function SignUpScreen() {
 				mode="outlined"
 				placeholder="Password"
         style={styles.input}
+				secureTextEntry={hidePassword}
 			></TextInput>
 
       <FAB
