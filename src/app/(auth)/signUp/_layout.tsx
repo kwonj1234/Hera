@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 
 import { View, StyleSheet } from "react-native";
 import { TextInput, FAB, Button } from "react-native-paper";
-import { Link, Stack } from 'expo-router'
+import { Link, Stack, router } from 'expo-router'
 
 
 export default function SignUpScreen() {
@@ -51,10 +51,9 @@ export default function SignUpScreen() {
 
       <Button
 				disabled={loading}
+				onPress={() => router.back()}
 			>
-				<Link href='/'>
 					Go Back to Login
-				</Link>
 			</Button>
     </View>
   )
