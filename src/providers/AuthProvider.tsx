@@ -15,7 +15,7 @@ const AuthContext = createContext<AuthData>({
 
 export default function AuthProvider({ children } :PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<Boolean>(true)
 
   useEffect(() => {
     const fetchSession = async () => {

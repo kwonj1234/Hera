@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { View, StyleSheet } from "react-native" 
 import { Button, FAB, TextInput } from "react-native-paper"
 import { Redirect, Link, Stack } from 'expo-router'
+import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 export default function LoginScreen() {
 
@@ -11,6 +12,18 @@ export default function LoginScreen() {
 	const [password, setPassword] = useState<string>("");
 	const [loading, setLoading] = useState<boolean>(false);
 	const [hidePassword, setHidePassword] = useState<boolean>(true);
+
+	async function signInWithEmail() {
+    setLoading(true);
+		console.log(email, password)
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+		console.log(error)
+    if (error) alert(error.message);
+    setLoading(false);
+  }
 
 	return (
 		<View style={styles.container}>
@@ -36,6 +49,7 @@ export default function LoginScreen() {
 				label={loading ? "Logging In..." : "Login"}
 				uppercase
 				disabled={loading}
+				onPress={() => signInWithEmail()}
 			></FAB>
 
 			<Button
@@ -61,7 +75,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 5,
 		marginTop: 5,
-		marginBottom: 20
+		marginBottom: 20,
 	},
 
 	label: {
