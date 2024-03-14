@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
 
-export default function AuthScreens() {
+export default function ProfileScreens() {
   return <Stack />
 }
