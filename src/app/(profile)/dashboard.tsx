@@ -1,10 +1,11 @@
 import { View, Text } from "react-native"
+import { Stack } from "expo-router"
 import { DocumentUploader } from "@/components"
-import { Button } from "react-native-paper"
 
 export default function ProfileScreen() {
   return (
 		<View>
+      <Stack.Screen options={{ title: 'Sign Up'}} />
 			<Text>Hello USER</Text>
 			<DocumentUploader
 				onResponse={() => console.log()}
