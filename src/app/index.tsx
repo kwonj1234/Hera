@@ -4,7 +4,8 @@ import { supabase } from "@/lib/supabase";
 import { View, StyleSheet } from "react-native" 
 import { Button, FAB, TextInput } from "react-native-paper"
 import { Redirect, Link, Stack } from 'expo-router'
-import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+
+import { useAuth } from "@/providers";
 
 export default function LoginScreen() {
 
@@ -13,6 +14,10 @@ export default function LoginScreen() {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [hidePassword, setHidePassword] = useState<boolean>(true);
 
+	const { session } = useAuth()
+
+	console.log("session", session)
+
 	async function signInWithEmail() {
     setLoading(true);
 		console.log(email, password)
@@ -20,7 +25,7 @@ export default function LoginScreen() {
       email: email,
       password: password,
     });
-		console.log(error)
+		console.log("err", error)
     if (error) alert(error.message);
     setLoading(false);
   }
