@@ -2,8 +2,10 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 import { View, StyleSheet } from "react-native";
-import { TextInput, FAB, Button } from "react-native-paper";
-import { Link, Stack, router } from 'expo-router'
+import { ActivityIndicator, TextInput, FAB, Button } from "react-native-paper";
+import { Redirect, Link, Stack, router } from 'expo-router'
+
+import { useAuth } from "@/providers";
 
 
 export default function SignUpScreen() {
@@ -11,6 +13,14 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 	const [hidePassword, setHidePassword] = useState<boolean>(true);
+
+	const { session, loading: authLoading } = useAuth()
+
+	if (authLoading) {
+		return <ActivityIndicator />
+	} else if (session) {
+		return <Redirect href={"/(profile)/dashboard"}/>
+	}
   
   async function signUpWithEmail() {
     setLoading(true);
@@ -48,10 +58,9 @@ export default function SignUpScreen() {
 				uppercase
         onPress={() => signUpWithEmail()}
 			></FAB>
-
-      <Button
+			<Button
 				disabled={loading}
-				onPress={() => router.back()}
+				onPress={() => {router.replace("/")}}
 			>
 					Go Back to Login
 			</Button>
