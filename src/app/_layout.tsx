@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { PaperProvider } from 'react-native-paper';
+import { AuthProvider } from '@/providers';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,9 +50,11 @@ function RootLayoutNav() {
 
   return (
     <PaperProvider>
-      <Stack>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
     </PaperProvider>
   );
 }

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { supabase } from "@/lib/supabase";
 
 import { View, StyleSheet } from "react-native" 
-import { Button, FAB, TextInput } from "react-native-paper"
+import { ActivityIndicator, Button, FAB, TextInput } from "react-native-paper"
 import { Redirect, Link, Stack } from 'expo-router'
 
 import { useAuth } from "@/providers";
@@ -14,18 +14,22 @@ export default function LoginScreen() {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [hidePassword, setHidePassword] = useState<boolean>(true);
 
-	const { session } = useAuth()
+	const { session, loading: authLoading } = useAuth()
 
+	if (authLoading) {
+		return <ActivityIndicator />
+	}
+	
 	console.log("session", session)
 
 	async function signInWithEmail() {
     setLoading(true);
-		console.log(email, password)
-    const { error } = await supabase.auth.signInWithPassword({
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
-		console.log("err", error)
+
     if (error) alert(error.message);
     setLoading(false);
   }
