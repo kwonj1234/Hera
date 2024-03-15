@@ -18,6 +18,8 @@ export default function LoginScreen() {
 
 	if (authLoading) {
 		return <ActivityIndicator />
+	} else if (session) {
+		return <Redirect href={"/(profile)/dashboard"}/>
 	}
 	
 	console.log("session", session)
@@ -25,7 +27,7 @@ export default function LoginScreen() {
 	async function signInWithEmail() {
     setLoading(true);
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
