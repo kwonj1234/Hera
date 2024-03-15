@@ -1,11 +1,16 @@
 import { View, Text } from "react-native"
 import { Stack } from "expo-router"
-import { DocumentUploader } from "@/components"
+import { DocumentUploader, SignOutButton } from "@/components"
 
 export default function ProfileScreen() {
-  return (
+  const header = {
+		title: "Profile",
+		headerRight: () => <SignOutButton>Sign Out</SignOutButton>
+	}
+	
+	return (
 		<View>
-      <Stack.Screen options={{ title: 'Sign Up'}} />
+      <Stack.Screen options={header} />
 			<Text>Hello USER</Text>
 			<DocumentUploader
 				onResponse={() => console.log()}
