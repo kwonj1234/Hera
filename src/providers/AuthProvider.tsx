@@ -25,10 +25,8 @@ export default function AuthProvider({ children } :PropsWithChildren) {
       setLoading(false)
     }
 
-    console.log("HELLO")
     fetchSession()
     supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("session change")
       setSession(session)
     })
 

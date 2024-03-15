@@ -2,7 +2,7 @@ import { useState } from "react"
 import { supabase } from "@/lib/supabase";
 
 import { View, StyleSheet } from "react-native" 
-import { ActivityIndicator, Button, FAB, TextInput } from "react-native-paper"
+import { ActivityIndicator, Button, FAB, Text, TextInput } from "react-native-paper"
 import { Redirect, Link, Stack } from 'expo-router'
 
 import { useAuth } from "@/providers";
@@ -39,6 +39,7 @@ export default function LoginScreen() {
 	return (
 		<View style={styles.container}>
 			<Stack.Screen options={{ title: 'Index'}} />
+			<Text variant="displayLarge">Hera</Text>
 			<TextInput
 				value={email}
 				onChangeText={text => setEmail(text)}
