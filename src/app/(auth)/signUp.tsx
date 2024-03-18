@@ -8,7 +8,6 @@ import { Redirect, Link, Stack, router } from 'expo-router'
 import { useAuth } from "@/providers";
 import { insertUser } from "@/api/users";
 
-
 export default function SignUpScreen() {
 	const [firstName, setFirstName] = useState<string>("");
 	const [lastName, setLastName] = useState<string>("");
@@ -43,6 +42,10 @@ export default function SignUpScreen() {
     setLoading(false);
   }
 
+	function formNotFilledOut():boolean {
+		return !firstName || !lastName || !email || !password
+	}
+	
   return (
     <View style={styles.container}>
 			<Stack.Screen options={{ title: 'Sign Up'}} />
@@ -78,7 +81,7 @@ export default function SignUpScreen() {
 
       <FAB
 				label={loading ? "Creating Account..." : "Create Account"}
-        disabled={loading}
+        disabled={!!formNotFilledOut || loading}
 				uppercase
         onPress={() => signUpWithEmail()}
 			></FAB>

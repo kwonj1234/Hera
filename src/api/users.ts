@@ -4,8 +4,8 @@ import { User } from "@/types";
 const tableName = 'users'
 
 export const getUser = async (id: String) => {
-  const {data, error} = await supabase.from(tableName).select('*').eq('user_uid', id)
-
+  const {data, error} = await supabase.from(tableName).select('*').eq('id', id)
+  console.log(id, data, error)
   if (!error && data) return new User({...data[0]})
 }
 

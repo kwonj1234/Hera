@@ -7,10 +7,10 @@ export interface ButtonProps extends PropsWithChildren {
 }
 
 export type UserType = {
-  user_uid: String,
-  first_name: String,
-  last_name: String,
-  primary_caregiver: Boolean
+  id: string,
+  first_name: string,
+  last_name: string,
+  primary_caregiver: boolean
 }
 
 export class User {
@@ -19,8 +19,8 @@ export class User {
   lastName: String
   primary: Boolean
 
-  constructor({user_uid, first_name, last_name, primary_caregiver} : UserType) {
-    this.id = user_uid
+  constructor({id, first_name, last_name, primary_caregiver} : UserType) {
+    this.id = id
     this.firstName = first_name
     this.lastName = last_name
     this.primary = primary_caregiver

@@ -6,7 +6,7 @@ import { useAuth } from "@/providers"
 
 export default function ProfileScreen() {
 	const { user } = useAuth()
-
+	console.log(user)
   const header = {
 		title: "Profile",
 		headerRight: () => <SignOutButton>Sign Out</SignOutButton>
