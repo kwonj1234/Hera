@@ -5,7 +5,6 @@ const tableName = 'users'
 
 export const getUser = async (id: String) => {
   const {data, error} = await supabase.from(tableName).select('*').eq('id', id)
-  console.log(id, data, error)
   if (!error && data) return new User({...data[0]})
 }
 
@@ -17,6 +16,4 @@ export const insertUser = async (first_name: string, last_name: string, id: stri
       last_name,
       primary_caregiver
     })
-
-    console.log(data, error)
 }

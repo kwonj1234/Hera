@@ -7,7 +7,6 @@ import { Button } from "react-native-paper";
 export default function SignOutButton({children, mode, icon} : ButtonProps) {
   
   const signOut = async () => {
-    console.log("sign out")
     await supabase.auth.signOut()
     router.replace("/")
   }
