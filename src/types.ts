@@ -6,8 +6,9 @@ export interface ButtonProps extends PropsWithChildren {
   icon?: string | undefined
 }
 
-export type User = {
-  id: number,
-  firstName: string,
-  lastName: string
+export type UserType = {
+  user_uid: String,
+  first_name: String,
+  last_name: String,
+  primary_caregiver: Boolean
 }
