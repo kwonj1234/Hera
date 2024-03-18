@@ -8,3 +8,13 @@ export const getUser = async (id: String) => {
 
   if (!error && data) return new User({...data[0]})
 }
+
+export const insertUser = async (first_name: string, last_name: string, id: string, primary_caregiver=true) => {
+  const { error } = await supabase.from(tableName)
+    .insert({
+      id,
+      first_name,
+      last_name,
+      primary_caregiver
+    })
+}

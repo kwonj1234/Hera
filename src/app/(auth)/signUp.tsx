@@ -6,12 +6,15 @@ import { ActivityIndicator, TextInput, FAB, Button } from "react-native-paper";
 import { Redirect, Link, Stack, router } from 'expo-router'
 
 import { useAuth } from "@/providers";
+import { insertUser } from "@/api/users";
 
 
 export default function SignUpScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+	const [firstName, setFirstName] = useState<string>("");
+	const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 	const [hidePassword, setHidePassword] = useState<boolean>(true);
 
 	const { session, loading: authLoading } = useAuth()
@@ -24,18 +27,39 @@ export default function SignUpScreen() {
   
   async function signUpWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
+			options: {
+				data: {
+					first_name: firstName.toLowerCase(),
+					last_name: lastName.toLowerCase(),
+				}
+			}
     });
   
     if (error) alert(error.message);
+		if (!error && data.user) await insertUser(firstName.toLowerCase(), lastName.toLowerCase(), data.user?.id, true)
     setLoading(false);
   }
 
   return (
     <View style={styles.container}>
 			<Stack.Screen options={{ title: 'Sign Up'}} />
+			<TextInput
+				value={firstName}
+				onChangeText={text => setFirstName(text)}
+				mode="outlined"
+				placeholder="First Name"
+        style={styles.input}
+			></TextInput>
+			<TextInput
+				value={lastName}
+				onChangeText={text => setLastName(text)}
+				mode="outlined"
+				placeholder="Last Name"
+        style={styles.input}
+			></TextInput>
 			<TextInput
 				value={email}
 				onChangeText={text => setEmail(text)}
