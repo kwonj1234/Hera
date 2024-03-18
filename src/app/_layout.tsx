@@ -4,7 +4,6 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
-import { useColorScheme } from '@/components/useColorScheme';
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { AuthProvider } from '@/providers';
 
@@ -46,7 +45,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
 
   return (
     <PaperProvider theme={MD3LightTheme}>
