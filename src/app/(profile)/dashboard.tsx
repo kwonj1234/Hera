@@ -4,9 +4,9 @@ import { DocumentUploader, SignOutButton } from "@/components"
 
 import { useAuth } from "@/providers"
 
-const { user } = useAuth()
-
 export default function ProfileScreen() {
+	const { user } = useAuth()
+
   const header = {
 		title: "Profile",
 		headerRight: () => <SignOutButton>Sign Out</SignOutButton>
@@ -15,7 +15,7 @@ export default function ProfileScreen() {
 	return (
 		<View>
       <Stack.Screen options={header} />
-			<Text>Hello {user?.firstName}</Text>
+			<Text>Hello {user?.firstName} {user?.lastName}</Text>
 			<DocumentUploader
 				onResponse={() => console.log()}
 				mode="text"
