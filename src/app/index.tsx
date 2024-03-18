@@ -21,8 +21,6 @@ export default function LoginScreen() {
 	} else if (session) {
 		return <Redirect href={"/(profile)/dashboard"}/>
 	}
-	
-	console.log("session", session)
 
 	async function signInWithEmail() {
     setLoading(true);
