@@ -10,7 +10,6 @@ export const getUser = async (id: String) => {
 }
 
 export const insertUser = async (first_name: string, last_name: string, id: string, primary_caregiver=true) => {
-  console.log(first_name, last_name, id)
   const { data, error } = await supabase.from(tableName)
     .insert({
       id,
