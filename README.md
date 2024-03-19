@@ -1,8 +1,11 @@
 # Hera
 
-## Installed Package
+Personal healthcare management application built using React Native and Supabase. Utilizes Expo for routing.
+
+## Installed Packages
 - [react-native-paper](https://www.npmjs.com/package/react-native-paper)
 - [expo-document-picker](https://docs.expo.dev/versions/latest/sdk/document-picker/)
+- [@react-native-community/datetimepicker](https://www.npmjs.com/package/@react-native-community/datetimepicker)
 
 ### [Supabase](https://docs.expo.dev/guides/using-supabase/)
 - @supabase/supabase-js 
