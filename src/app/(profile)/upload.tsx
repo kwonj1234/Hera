@@ -6,6 +6,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import { CategoryToggle, DocumentUploader } from "@/components"
 import { TextInput, Button, FAB } from "react-native-paper"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { DocumentPickerAsset } from "expo-document-picker"
 
 export default function UploadScreen() {
   const [labName, setLabName] = useState<string>("")
@@ -16,6 +17,7 @@ export default function UploadScreen() {
   const [result, setResult] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [files, setFiles] = useState<DocumentPickerAsset[] | undefined>(undefined)
 
   const currentDate = new Date()
   const header = {
@@ -32,6 +34,11 @@ export default function UploadScreen() {
   const uploadTest = async () => {
     setLoading(true)
     setLoading(false)
+  }
+
+  const uploadFiles = (files: DocumentPickerAsset[]) => {
+    console.log(files)
+    setFiles(files)
   }
 
 	return (
@@ -92,7 +99,7 @@ export default function UploadScreen() {
           ></TextInput>
 
           <DocumentUploader
-            onResponse={() => console.log()}
+            onResponse={uploadFiles}
             mode="text"
           >
             Choose File

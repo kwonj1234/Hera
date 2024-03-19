@@ -19,7 +19,7 @@ export default function DocumentUploader({children, icon=undefined, mode, onResp
 
       if (result.canceled === false) {
         // File picked successfully
-        console.log('Document picked:', result);
+        onResponse(result);
         // Handle the selected file here
       } else {
         // User cancelled the picker
