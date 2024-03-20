@@ -3,12 +3,12 @@ import { Lab } from "@/types";
 
 const tableName = 'labs'
 
-export const uploadLab = async (
+export const insertLab = async (
   uploadedBy: string,
   patient: string,
   category: string,
   result: string,
-  description: string,
+  notes: string,
   labType: string,
   labDate: Date,
 ) => {
@@ -17,21 +17,12 @@ export const uploadLab = async (
       patient,
       category,
       result,
-      description,
+      notes,
       uploaded_by: uploadedBy,
       lab_type: labType,
       lab_date: labDate
     })
-  console.log(data)
-  if (!error) return data
-}
+    .select()
 
-export const insertUser = async (first_name: string, last_name: string, id: string, primary_caregiver=true) => {
-  const { data, error } = await supabase.from(tableName)
-    .insert({
-      id,
-      first_name,
-      last_name,
-      primary_caregiver
-    })
+  if (!error) return data[0]
 }

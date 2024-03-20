@@ -8,12 +8,14 @@ import { TextInput, Button, FAB } from "react-native-paper"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { DocumentPickerAsset } from "expo-document-picker"
 
-import { uploadLabDocuments } from "@/api/labDocuments"
+import { router } from 'expo-router'
+import { insertLabDocuments, uploadLabDocuments } from "@/api/labDocuments"
+import { insertLab } from "@/api/labs"
 import { useAuth } from "@/providers"
 
 export default function UploadScreen() {
   const [labName, setLabName] = useState<string>("")
-  const [labTest, setLabTest] = useState<string>("")
+  const [labType, setLabType] = useState<string>("")
   const [category, setCategory] = useState<"physical" | "dental" | "vision">("physical")
   const [isDateModalOpen, setDateModalOpen] = useState<boolean>(false);
   const [labDate, setLabDate] = useState<Date | undefined>(new Date());
@@ -28,7 +30,7 @@ export default function UploadScreen() {
 		title: "Upload Document",
 	}
 	
-  const isFormFilledOut = labName.length && labTest.length && !!labDate && result.length
+  const isFormFilledOut = labName.length && labType.length && !!labDate && result.length
 
   const onLabDateConfirm = (event: DateTimePickerEvent, date: Date | undefined) => {
     setLabDate(date)
@@ -38,11 +40,30 @@ export default function UploadScreen() {
   const uploadTest = async () => {
     setLoading(true)
 
-    let documents
-    if (user) documents = await uploadLabDocuments(user?.id, labName, files)
-    console.log(documents)
+    if (!isFormFilledOut || !user) {
+      return;
+    }
+
+    const lab = await insertLab(
+      user?.id,
+      user?.id,
+      category,
+      result,
+      notes,
+      labType,
+      labDate,
+    )
+    console.log('labl',lab)
+
+    if (!lab) {
+      return
+    }
+
+    const documents = await uploadLabDocuments(user?.id, lab.id, files)
+    await insertLabDocuments(lab.id, documents)
 
     setLoading(false)
+    router.back()
   }
 
   const uploadFiles = (files: DocumentPickerAsset[]) => {
@@ -79,8 +100,8 @@ export default function UploadScreen() {
           ></CategoryToggle>
           
           <TextInput
-            value={labTest}
-            onChangeText={text => setLabTest(text)}
+            value={labType}
+            onChangeText={text => setLabType(text)}
             mode="outlined"
             placeholder="Test Type"
             style={styles.input}
@@ -128,7 +149,7 @@ export default function UploadScreen() {
 
           <FAB
             label={loading ? "Uploading Test..." : "Upload Test"}
-            disabled={!isFormFilledOut || loading}
+            // disabled={!isFormFilledOut || loading}
             uppercase
             onPress={() => uploadTest()}
           ></FAB>

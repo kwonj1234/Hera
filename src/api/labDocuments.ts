@@ -6,7 +6,7 @@ import { decode } from 'base64-arraybuffer';
 const tableName = 'lab_documents'
 const bucket = 'lab-documents'
 
-export const uploadLabDocuments = async (userUID:string, labName:string, documents: Array<any>) => {
+export const uploadLabDocuments = async (userUID:string, labId:number, documents: Array<any>) => {
 
   documents = await Promise.all(documents.map(async (doc) => {
     if (!doc?.uri.startsWith('file://')) {
@@ -19,12 +19,10 @@ export const uploadLabDocuments = async (userUID:string, labName:string, documen
       const { data, error } = await supabase.storage
         .from(bucket)
         .upload(
-          `${userUID}/${labName}/${doc.name}`, 
+          `${userUID}/${labId}/${doc.name}`, 
           decode(base64), 
           { contentType: doc.mimeType }
         );
-  
-      console.log(error);
   
       if (data) {
         doc['path'] = data.path
@@ -34,4 +32,23 @@ export const uploadLabDocuments = async (userUID:string, labName:string, documen
   }))
 
   return documents
+}
+
+export const insertLabDocuments = async (lab_id: number, documents: Array<any>) => {
+  const docs = await Promise.all(documents.map(async (doc) => {
+    const {data, error} = await supabase.from(tableName)
+      .insert({
+        lab_id,
+        path: doc.path,
+        description: "",
+        file_name: doc.name
+      }).select()
+    if (!error) {
+      return data
+    } else {
+      return error
+    }
+  }))
+
+  return docs
 }

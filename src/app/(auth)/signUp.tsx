@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 
 import { View, StyleSheet } from "react-native";
 import { ActivityIndicator, TextInput, FAB, Button } from "react-native-paper";
-import { Redirect, Link, Stack, router } from 'expo-router'
+import { Redirect, Stack, router } from 'expo-router'
 
 import { useAuth } from "@/providers";
 import { insertUser } from "@/api/users";
