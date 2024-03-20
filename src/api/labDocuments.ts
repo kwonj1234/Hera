@@ -17,7 +17,7 @@ export const uploadLabDocuments = async (userUID:string, labName:string, documen
       });
   
       const { data, error } = await supabase.storage
-        .from('product-images')
+        .from(bucket)
         .upload(
           `${userUID}/${labName}/${doc.name}`, 
           decode(base64), 

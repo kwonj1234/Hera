@@ -28,7 +28,7 @@ export default function UploadScreen() {
 		title: "Upload Document",
 	}
 	
-  const isFormFilledOut = !!labName && !!labTest && !!labDate && !!result
+  const isFormFilledOut = labName.length && labTest.length && !!labDate && result.length
 
   const onLabDateConfirm = (event: DateTimePickerEvent, date: Date | undefined) => {
     setLabDate(date)
@@ -128,7 +128,7 @@ export default function UploadScreen() {
 
           <FAB
             label={loading ? "Uploading Test..." : "Upload Test"}
-            disabled={!!isFormFilledOut || loading}
+            disabled={!isFormFilledOut || loading}
             uppercase
             onPress={() => uploadTest()}
           ></FAB>
