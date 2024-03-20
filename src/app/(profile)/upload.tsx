@@ -8,6 +8,9 @@ import { TextInput, Button, FAB } from "react-native-paper"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { DocumentPickerAsset } from "expo-document-picker"
 
+import { uploadLabDocuments } from "@/api/labDocuments"
+import { useAuth } from "@/providers"
+
 export default function UploadScreen() {
   const [labName, setLabName] = useState<string>("")
   const [labTest, setLabTest] = useState<string>("")
@@ -17,7 +20,8 @@ export default function UploadScreen() {
   const [result, setResult] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [files, setFiles] = useState<DocumentPickerAsset[] | undefined>(undefined)
+  const [files, setFiles] = useState<DocumentPickerAsset[]>([])
+  const { user } = useAuth()
 
   const currentDate = new Date()
   const header = {
@@ -33,12 +37,27 @@ export default function UploadScreen() {
 
   const uploadTest = async () => {
     setLoading(true)
+
+    let documents
+    if (user) documents = await uploadLabDocuments(user?.id, labName, files)
+    console.log(documents)
+
     setLoading(false)
   }
 
   const uploadFiles = (files: DocumentPickerAsset[]) => {
     console.log(files)
     setFiles(files)
+  }
+
+  const removeFile = (uri: string) => {
+    let temp = files
+    const i = temp.findIndex(file => file.uri === uri)
+    console.log(i)
+    if (i !== -1) {
+      temp.splice(i, 1);
+    }
+    setFiles(temp)
   }
 
 	return (
@@ -100,7 +119,9 @@ export default function UploadScreen() {
 
           <DocumentUploader
             onResponse={uploadFiles}
+            onRemove={removeFile}
             mode="text"
+            files={files}
           >
             Choose File
           </DocumentUploader>

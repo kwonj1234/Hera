@@ -1,15 +1,23 @@
-import { PropsWithChildren, useCallback } from "react";
+import { PropsWithChildren, useCallback, useEffect } from "react";
 import * as DocumentPicker from 'expo-document-picker';
 
-import { Button } from "react-native-paper";
+import { StyleSheet, Text, View } from "react-native";
+import { Card, Button, IconButton } from "react-native-paper";
 
 interface props extends PropsWithChildren {
-    onResponse: Function,
-    mode: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal' | undefined,
-    icon?: string | undefined
+  onResponse: Function,
+  onRemove: Function,
+  mode: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal' | undefined,
+  icon?: string | undefined,
+  files: DocumentPicker.DocumentPickerAsset[]
 }
 
-export default function DocumentUploader({children, icon=undefined, mode, onResponse} :props) {
+export default function DocumentUploader({children, icon=undefined, mode, onResponse, onRemove, files} :props) {
+
+  useEffect(() => {
+    console.log(files)
+  }, [files])
+
   const handlePickDocument = async () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
@@ -19,7 +27,7 @@ export default function DocumentUploader({children, icon=undefined, mode, onResp
 
       if (result.canceled === false) {
         // File picked successfully
-        onResponse(result);
+        onResponse(result.assets);
         // Handle the selected file here
       } else {
         // User cancelled the picker
@@ -33,6 +41,7 @@ export default function DocumentUploader({children, icon=undefined, mode, onResp
 
 
     return (
+      <Card style={styles.container}>
         <Button
             mode={mode}
             icon={icon}
@@ -40,5 +49,39 @@ export default function DocumentUploader({children, icon=undefined, mode, onResp
         >
             {children}
         </Button>
+
+        {
+          files.map((file) => {
+            return (
+              <View key={file.uri} style={styles.row}>
+                <Text>
+                  {file.name}
+                </Text>
+                <IconButton
+                  size={15}
+                  icon='window-close'
+                  onPress={() => onRemove(file.uri)}
+                ></IconButton>
+              </View>
+
+            )      
+          })
+        }
+      </Card>
     )
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+    alignItems:'center',
+    width: '90%'
+	},
+
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
+  }
+})
