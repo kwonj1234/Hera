@@ -39,36 +39,39 @@ export default function DocumentUploader({children, icon=undefined, mode, onResp
     }
   };
 
+  const truncateString = (length: number, str: string) => {
+    return `${str.substring(0, length)}...` 
+  }
 
-    return (
-      <Card style={styles.container}>
-        <Button
-            mode={mode}
-            icon={icon}
-            onPress={() => handlePickDocument()}
-        >
-            {children}
-        </Button>
+  return (
+    <Card style={styles.container}>
+      <Button
+          mode={mode}
+          icon={icon}
+          onPress={() => handlePickDocument()}
+      >
+          {children}
+      </Button>
 
-        {
-          files.map((file) => {
-            return (
-              <View key={file.uri} style={styles.row}>
-                <Text>
-                  {file.name}
-                </Text>
-                <IconButton
-                  size={15}
-                  icon='window-close'
-                  onPress={() => onRemove(file.uri)}
-                ></IconButton>
-              </View>
+      {
+        files.map((file) => {
+          return (
+            <View key={file.uri} style={styles.row}>
+              <Text>
+                {truncateString(30, file.name)}
+              </Text>
+              <IconButton
+                size={15}
+                icon='window-close'
+                onPress={() => onRemove(file.uri)}
+              ></IconButton>
+            </View>
 
-            )      
-          })
-        }
-      </Card>
-    )
+          )      
+        })
+      }
+    </Card>
+  )
 }
 
 const styles = StyleSheet.create({

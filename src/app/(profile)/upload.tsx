@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 import { StyleSheet, View } from "react-native"
+import style from "@/styles"
 import { Stack } from "expo-router"
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import { CategoryToggle, DocumentUploader } from "@/components"
@@ -72,7 +73,7 @@ export default function UploadScreen() {
   }
 
   const removeFile = (uri: string) => {
-    let temp = files
+    let temp = [...files]
     const i = temp.findIndex(file => file.uri === uri)
     console.log(i)
     if (i !== -1) {
