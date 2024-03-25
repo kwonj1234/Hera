@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 import { StyleSheet, View } from "react-native"
-import style from "@/styles"
 import { Stack } from "expo-router"
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import { CategoryToggle, DocumentUploader } from "@/components"
@@ -153,6 +152,7 @@ export default function UploadScreen() {
             // disabled={!isFormFilledOut || loading}
             uppercase
             onPress={() => uploadTest()}
+            style={styles.FAB}
           ></FAB>
         </View>
       </KeyboardAwareScrollView>
@@ -183,5 +183,10 @@ const styles = StyleSheet.create({
 
   "date-picker": {
     height: 30
+  },
+
+  FAB: {
+    marginTop: 20,
+    marginBottom: 20
   }
 })
