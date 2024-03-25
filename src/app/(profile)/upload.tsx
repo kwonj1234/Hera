@@ -144,7 +144,7 @@ export default function UploadScreen() {
             mode="text"
             files={files}
           >
-            Choose File
+            Choose Files
           </DocumentUploader>
 
           <FAB
