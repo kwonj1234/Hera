@@ -5,12 +5,10 @@ import { SignOutButton, MainDrawer } from "@/components"
 import { useAuth } from "@/providers"
 import { Button } from "react-native-paper"
 
-export default function ProfileScreen() {
+export default function UploadedFilesScreen() {
 	const { user } = useAuth()
   const header = {
-		title: "Profile",
-		headerRight: () => <SignOutButton>Sign Out</SignOutButton>,
-		headerLeft: () => <MainDrawer></MainDrawer>
+		title: "Uploaded Files"
 	}
 	
 	return (

@@ -9,6 +9,9 @@ Personal healthcare management application built using React Native and Supabase
 - [base64-arraybuffer](https://www.npmjs.com/package/base64-arraybuffer)
 - [@react-native-community/datetimepicker](https://www.npmjs.com/package/@react-native-community/datetimepicker)
 - [react-native-keyboard-aware-scroll-view](https://www.npmjs.com/package/react-native-keyboard-aware-scroll-view)
+- [@react-navigation/drawer](https://reactnavigation.org/docs/drawer-navigator/)
+- [react-native-gesture-handler](https://reactnavigation.org/docs/drawer-navigator/)
+- [react-native-reanimated](https://reactnavigation.org/docs/drawer-navigator/)
 
 ### [Supabase](https://docs.expo.dev/guides/using-supabase/)
 - @supabase/supabase-js 
