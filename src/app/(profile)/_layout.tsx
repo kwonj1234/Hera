@@ -1,5 +1,20 @@
-import { Stack } from "expo-router";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export default function ProfileScreens() {
-  return <Stack />
+// Import your screen components
+import UploadScreen from './upload';
+import ProfileScreen from './dashboard';
+
+const Drawer = createDrawerNavigator();
+
+export default function Profile() {
+  return (
+      <Drawer.Navigator
+        defaultStatus='open'
+      >
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name="Upload" component={UploadScreen} />
+      </Drawer.Navigator>
+  );
 }
