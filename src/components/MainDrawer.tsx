@@ -3,20 +3,14 @@ import { router } from "expo-router";
 import { useState } from "react";
 
 import { View } from "react-native"
-import { Drawer } from "react-native-paper";
+import ProfileScreen from "@/app/(profile)/dashboard";
+import UploadScreen from "@/app/(profile)/upload";
+import { ScrollView } from "react-native-gesture-handler";
 
-export default function SignOutButton() {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
-
+export default function MainDrawer() {
   return (
-    <View>
-      <Drawer.CollapsedItem
-        focusedIcon="inbox"
-        unfocusedIcon="inbox-outline"
-        active={drawerOpen}
-        onPress={() => setDrawerOpen(!drawerOpen)}
-      ></Drawer.CollapsedItem>
-    </View>
-
+    <ScrollView>
+      
+    </ScrollView>
   )
 }

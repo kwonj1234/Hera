@@ -10,7 +10,6 @@ export default function ProfileScreen() {
   const header = {
 		title: "Profile",
 		headerRight: () => <SignOutButton>Sign Out</SignOutButton>,
-		headerLeft: () => <MainDrawer></MainDrawer>
 	}
 	
 	return (
