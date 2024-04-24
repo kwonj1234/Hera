@@ -26,3 +26,25 @@ export const insertLab = async (
 
   if (!error) return data[0]
 }
+
+export const getLabs = async (
+  patient: string,
+  category: string | null
+) => {
+  let resp
+  if (category === null) {
+    resp = await supabase.from(tableName)
+      .select()
+      .eq('patient', patient)
+  } else {
+    resp = await supabase.from(tableName)
+      .select()
+      .eq('patient', patient)
+      .eq('category', category)
+  }
+
+  const data = resp.data
+  const error = resp.error
+
+  if (!error && data) return data[0]
+}
